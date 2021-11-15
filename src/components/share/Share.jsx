@@ -13,6 +13,7 @@ import axios from "axios";
 export default function Share() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user } = useContext(AuthContext);
+  //console.log(user);
 
   const [userState, setState] = useState({});
   useEffect(() => {
@@ -20,12 +21,12 @@ export default function Share() {
       const token = JSON.parse(localStorage.getItem("user")).token;
       const res = await axios({
         method: "GET",
-        url: `https://socialliteserver.herokuapp.com/api/users?userId=${user["user"]._id}`,
+        url: `https://socialliteserver.herokuapp.com/api/users?userId=${user._id}`,
         headers: {
           Authorization: "Bearer " + token,
         },
       });
-      console.log(res);
+      //console.log(res);
       setState(res.data);
     };
 
@@ -39,7 +40,7 @@ export default function Share() {
     e.preventDefault();
     const token = JSON.parse(localStorage.getItem("user")).token;
     const newPost = {
-      userId: user["user"]._id,
+      userId: user._id,
       desc: desc.current.value,
     };
     if (file) {
@@ -48,7 +49,7 @@ export default function Share() {
       data.append("name", fileName);
       data.append("file", file);
       newPost.img = fileName;
-      console.log(newPost);
+      //console.log(newPost);
       try {
         await axios({
           method: "POST",
@@ -83,7 +84,7 @@ export default function Share() {
             alt=""
           />
           <input
-            placeholder={"What's in your mind " + user["user"].username + "?"}
+            placeholder={"What's in your mind " + user?.username + "?"}
             className="shareInput"
             ref={desc}
           />

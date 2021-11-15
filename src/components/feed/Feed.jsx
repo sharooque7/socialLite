@@ -12,7 +12,7 @@ export default function Feed({ username }) {
   const { user, dispatch } = useContext(AuthContext);
 
   const history = useHistory();
-  console.log(user);
+  ///console.log(user);
 
   useEffect(() => {
     const expiryDate = localStorage.getItem("expiryDate");
@@ -42,7 +42,7 @@ export default function Feed({ username }) {
             headers: { Authorization: "Bearer " + token },
           });
       //timeline/all
-      console.log(res.data);
+      ///console.log(res.data);
       setPosts(
         res.data.sort((p1, p2) => {
           return new Date(p2.createdAt) - new Date(p1.createdAt);
@@ -55,7 +55,7 @@ export default function Feed({ username }) {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        {(!username || username !== user["user"].username) && <Share />}
+        {(!username || username !== user?.username) && <Share />}
         {posts.map((p) => (
           <Post key={p._id} post={p} />
         ))}

@@ -18,12 +18,12 @@ const NewsFeed = () => {
         );
         setFeedState(res["data"].results);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     fetchFeed();
   }, []);
-  console.log(feedState);
+  //console.log(feedState);
 
   return (
     <>

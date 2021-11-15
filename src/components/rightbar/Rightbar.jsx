@@ -11,15 +11,15 @@ export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
-  console.log(currentUser);
-  console.log(user);
+  // console.log(currentUser);
+  // console.log(user);
   const [followed, setFollowed] = useState("");
 
   useEffect(() => {
     const getFriends = async () => {
       const token = JSON.parse(localStorage.getItem("user")).token;
 
-      console.log(token);
+      // console.log(token);
       try {
         const friendList = await axios({
           method: "GET",
@@ -32,7 +32,7 @@ export default function Rightbar({ user }) {
         });
         setFriends(friendList.data);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getFriends();
@@ -41,17 +41,15 @@ export default function Rightbar({ user }) {
   const handleClick = async () => {
     const token = JSON.parse(localStorage.getItem("user")).token;
 
-    console.log(currentUser["user"]._id);
-    console.log(user?._id);
-
+    // console.log(currentUser._id);
+    // console.log(user?._id);
+    const data = { userId: currentUser?._id };
     try {
       if (followed) {
         await axios({
           method: "PUT",
           url: `https://socialliteserver.herokuapp.com/api/users/${user?._id}/unfollow`,
-          data: {
-            userId: currentUser["user"]?._id,
-          },
+          data: data,
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -62,19 +60,17 @@ export default function Rightbar({ user }) {
         await axios({
           method: "PUT",
           url: `https://socialliteserver.herokuapp.com/api/users/${user?._id}/follow`,
-          data: {
-            userId: currentUser["user"]._id,
-          },
+          data: data,
           headers: {
             Authorization: "Bearer " + token,
           },
         });
-        console.log(followed);
+        // console.log(followed);
         setFollowed(true);
         dispatch({ type: "FOLLOW", payload: user._id });
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -105,6 +101,7 @@ export default function Rightbar({ user }) {
     const relation = useRef("");
 
     const updatecity = async (value, type) => {
+      const token = JSON.parse(localStorage.getItem("user")).token;
       setState(!state);
       if (
         (type === "update" && city.current.value !== "") ||
@@ -112,25 +109,30 @@ export default function Rightbar({ user }) {
         relation.current.value !== ""
       ) {
         try {
-          axios({
-            method: "put",
-            url: `https://socialliteserver.herokuapp.com/api/users/${currentUser["user"]._id}`,
-            data: {
-              city: city.current.value,
-              from: from.current.value,
-              relationship: relation.current.value,
-              userId: currentUser["user"]._id,
+          const data = {
+            city: city.current.value,
+            from: from.current.value,
+            relationship: relation.current.value,
+            userId: currentUser?._id,
+          };
+          // console.log(data);
+          await axios({
+            method: "PUT",
+            url: `https://socialliteserver.herokuapp.com/api/users/${currentUser?._id}`,
+            data: data,
+            headers: {
+              Authorization: "Bearer " + token,
             },
           });
           window.location.reload();
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       }
     };
     return (
       <>
-        {user._id !== currentUser["user"]._id && (
+        {user?._id !== currentUser?._id && (
           <button className="rightbarFollowButton" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
             {followed ? <Remove /> : <Add />}
@@ -142,7 +144,7 @@ export default function Rightbar({ user }) {
             <span className="rightbarInfoKey">City:</span>
             <span className="rightbarInfoValue">{user.city}</span>
             <input className="city" type="text" disabled={state} ref={city} />
-            {currentUser["user"]._id === user._id && (
+            {currentUser?._id === user._id && (
               <button
                 onClick={(e) => {
                   updatecity(
@@ -176,6 +178,7 @@ export default function Rightbar({ user }) {
         <div className="rightbarFollowings">
           {friends.map((friend) => (
             <Link
+              key={friend._id}
               to={"/profile/" + friend.username}
               style={{ textDecoration: "none" }}
             >

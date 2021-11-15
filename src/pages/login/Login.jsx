@@ -10,23 +10,33 @@ export default function Login() {
   const email = useRef();
   const password = useRef();
   const [errorState, setErroState] = useState(false);
-  const { user, isFetching, dispatch } = useContext(AuthContext);
-  const handleSubmit = (e) => {
+  const { user, isFetching, sign, dispatch } = useContext(AuthContext);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    loginCall(
-      { email: email.current.value, password: password.current.value },
-      dispatch
-    );
-    setErroState(true);
-    setTimeout(() => {
-      setErroState(false);
-    }, 3000);
+    try {
+      await loginCall(
+        { email: email.current.value, password: password.current.value },
+        dispatch
+      );
+    } catch (error) {
+      //console.log("error");
+      setErroState(true);
+      setTimeout(() => {
+        setErroState(false);
+      }, 5000);
+    }
   };
-  console.log(user);
+  //console.log(user);
   return (
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
+          <div className="sample">
+            <span>Sample Credentials</span>
+            <span>ozil@gmail.com Arsenal</span>
+            <span>Lukita@gmail.com Madrid10</span>
+            <span>Leo@gmail.com Barcelona</span>
+          </div>
           <h3 className="loginLogo">Social Lite</h3>
           <span className="loginDesc">
             Post and chat spend time with people online Social Lite.
@@ -63,6 +73,12 @@ export default function Login() {
             ) : (
               ""
             )}
+            {sign ? (
+              <p style={{ color: "green", textAlign: "center" }}>
+                Registered Successfully
+              </p>
+            ) : null}
+
             <span className="loginForgot">Forgot Password?</span>
             <Link
               to="/register"

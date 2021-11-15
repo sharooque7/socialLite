@@ -7,9 +7,7 @@ export default function Conversation({ conversation, currentUser }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
-    const friendId = conversation.members.find(
-      (m) => m !== currentUser["user"]._id
-    );
+    const friendId = conversation.members.find((m) => m !== currentUser?._id);
 
     const getUser = async () => {
       const token = JSON.parse(localStorage.getItem("user")).token;
@@ -23,7 +21,7 @@ export default function Conversation({ conversation, currentUser }) {
         });
         setUser(res.data);
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     };
     getUser();

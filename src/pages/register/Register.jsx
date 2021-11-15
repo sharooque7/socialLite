@@ -1,23 +1,33 @@
 import "./register.css";
-import { useRef } from "react";
+import { useRef, useState, useContext } from "react";
 // import { AuthContext } from "../../context/AuthContext";
 // import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
+import { sign } from "../apiCalls";
 export default function Register() {
   const username = useRef();
   const email = useRef();
   const password = useRef();
   const passwordAgain = useRef();
   const history = useHistory();
+  const [error, setError] = useState({ error: false });
+
+  const { user, isFetching, dispatch } = useContext(AuthContext);
   // const token = JSON.parse(localStorage.getItem("user")).token;
 
   // const { user, isFetching, error, dispatch } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(passwordAgain.current.value);
+    console.log(password.current.value);
     if (passwordAgain.current.value !== password.current.value) {
-      passwordAgain.current.setCustomValidity("Password don't match!");
+      setError({ error: true });
+      setTimeout(() => {
+        setError({ error: false });
+      }, 5000);
     } else {
       const user = {
         username: username.current.value,
@@ -29,8 +39,9 @@ export default function Register() {
         await axios({
           method: "POST",
           url: "https://socialliteserver.herokuapp.com/api/auth/register",
-          data: { user },
+          data: user,
         });
+        sign(dispatch);
         history.push("/login");
       } catch (error) {
         console.log(error);
@@ -84,6 +95,11 @@ export default function Register() {
             <button className="loginButton" type="submit">
               Sign Up
             </button>
+            {error.error ? (
+              <p style={{ color: "red", textAlign: "center" }}>
+                Password not same
+              </p>
+            ) : null}
             <button className="loginRegisterButton" onClick={handleRedirect}>
               Log into Account
             </button>

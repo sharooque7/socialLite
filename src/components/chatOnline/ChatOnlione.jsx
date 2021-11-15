@@ -1,26 +1,28 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./chatOnline.css";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
+  const { user } = useContext(AuthContext);
   const [friends, setFriends] = useState([]);
   const [onlineFriends, setOnlineFriends] = useState([]);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("user")).token;
-    console.log(currentId);
+    ///console.log(currentId);
     const getFriends = async () => {
       const res = await axios({
         method: "GET",
         url:
           "https://socialliteserver.herokuapp.com/api/users/friends/" +
-          currentId,
+          user?._id,
         headers: { Authorization: "Bearer " + token },
       });
       setFriends(res.data);
 
-      console.log(currentId);
+      ///console.log(currentId);
     };
 
     getFriends();
@@ -66,12 +68,12 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
           },
           headers: { Authorization: "Bearer " + token },
         });
-        console.log(data);
+        ///console.log(data);
       }
 
       setCurrentChat(res.data);
     } catch (err) {
-      console.log(err);
+      ///console.log(err);
     }
   };
 

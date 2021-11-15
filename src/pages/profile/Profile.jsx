@@ -59,7 +59,7 @@ export default function Profile() {
       await axios({
         method: "PUT",
         url: `https://socialliteserver.herokuapp.com/api/users/${user._id}`,
-        data: { img },
+        data: img,
         headers: { Authorization: "Bearer " + token },
       });
       window.location.reload();

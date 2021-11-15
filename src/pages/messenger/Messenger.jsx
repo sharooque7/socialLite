@@ -40,11 +40,11 @@ export default function Messenger() {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    console.log(user["user"].followings);
-    socket.current.emit("addUser", user["user"]._id);
+    /////console.log(user?.followings);
+    socket.current.emit("addUser", user?._id);
     socket.current.on("getUsers", (users) => {
       setOnlineUsers(
-        user["user"].followings.filter((f) => users.some((u) => u.userId === f))
+        user?.followings.filter((f) => users.some((u) => u.userId === f))
       );
     });
   }, [user]);
@@ -56,13 +56,13 @@ export default function Messenger() {
           method: "GET",
           url:
             "https://socialliteserver.herokuapp.com/api/conversation/" +
-            user["user"]._id,
+            user?._id,
           headers: { Authorization: "Bearer " + token },
         });
 
         setConversations(res.data);
       } catch (err) {
-        console.log(err);
+        /////console.log(err);
       }
     };
     getConversations();
@@ -80,7 +80,7 @@ export default function Messenger() {
         });
         setMessages(res.data);
       } catch (err) {
-        console.log(err);
+        /////console.log(err);
       }
     };
     getMessages();
@@ -89,17 +89,17 @@ export default function Messenger() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
-      sender: user["user"]._id,
+      sender: user?._id,
       text: newMessage,
       conversationId: currentChat?._id,
     };
 
     const receiverId = currentChat.members.find(
-      (member) => member !== user["user"]._id
+      (member) => member !== user?._id
     );
 
     socket.current.emit("sendMessage", {
-      senderId: user["user"]._id,
+      senderId: user?._id,
       receiverId,
       text: newMessage,
     });
@@ -114,7 +114,7 @@ export default function Messenger() {
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (err) {
-      console.log(err);
+      /////console.log(err);
     }
   };
 
@@ -144,9 +144,9 @@ export default function Messenger() {
                   {messages.map((m) => (
                     <div ref={scrollRef}>
                       <Message
-                        user={user["user"]._id}
+                        user={user?._id}
                         message={m}
-                        own={m.sender === user["user"]._id}
+                        own={m.sender === user?._id}
                       />
                     </div>
                   ))}
@@ -174,7 +174,7 @@ export default function Messenger() {
           <div className="chatOnlineWrapper">
             <ChatOnline
               onlineUsers={onlineUsers}
-              currentId={user["user"]._id}
+              currentId={user?._id}
               setCurrentChat={setCurrentChat}
             />
           </div>

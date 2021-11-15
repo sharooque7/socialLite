@@ -19,7 +19,7 @@ export default function Topbar() {
     const fetch = async () => {
       const res = await axios({
         method: "GET",
-        url: `https://socialliteserver.herokuapp.com/api/users?userId=${user["user"]._id}`,
+        url: `https://socialliteserver.herokuapp.com/api/users?userId=${user?._id}`,
         headers: {
           Authorization: "Bearer " + token,
         },

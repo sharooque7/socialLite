@@ -15,7 +15,7 @@ export default function Post({ post }) {
   const { user: currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    setIsLiked(post.likes.includes(currentUser["user"]._id));
+    setIsLiked(post.likes.includes(currentUser?._id));
   }, [currentUser, post.likes]);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Post({ post }) {
           Authorization: "Bearer " + token,
         },
       });
-      console.log(res.data);
+      //console.log(res.data);
       setUser(res.data);
     };
     fetchUsers();
@@ -40,13 +40,13 @@ export default function Post({ post }) {
       axios({
         method: "PUT",
         url: `https://socialliteserver.herokuapp.com/api/posts/${post._id}/like`,
-        data: { userId: currentUser["user"]._id },
+        data: { userId: currentUser?._id },
         headers: {
           Authorization: "Bearer " + token,
         },
       });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
@@ -54,18 +54,18 @@ export default function Post({ post }) {
 
   const deletePost = async (post) => {
     const token = JSON.parse(localStorage.getItem("user")).token;
-    console.log(post);
-    console.log(currentUser["user"]._id);
+    //console.log(post);
+    //console.log(currentUser?._id);
     try {
       await axios({
         method: "delete",
         url: `https://socialliteserver.herokuapp.com/api/posts/${post}`,
-        data: { userId: currentUser["user"]._id },
+        data: { userId: currentUser?._id },
         headers: { Authorization: "Bearer " + token },
       });
       window.location.reload();
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
   return (
@@ -88,7 +88,7 @@ export default function Post({ post }) {
             <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="postTopRight">
-            {post.userId === currentUser["user"]._id && (
+            {post.userId === currentUser?._id && (
               <DeleteIcon
                 style={{ cursor: "pointer" }}
                 onClick={() => {

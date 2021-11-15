@@ -40,6 +40,16 @@ const AuthReducer = (state, action) => {
       return {
         user: null,
       };
+
+    case "SIGN":
+      return {
+        sign: true,
+      };
+
+    case "SUCCESS":
+      return {
+        sign: false,
+      };
     default:
       return state;
   }
