@@ -59,7 +59,7 @@ export default function Rightbar({ user }) {
         setFollowed(false);
         dispatch({ type: "UNFOLLOW", payload: user?._id });
       } else {
-        await axios.put({
+        await axios({
           method: "PUT",
           url: `https://socialliteserver.herokuapp.com/api/users/${user?._id}/follow`,
           data: {
