@@ -44,9 +44,9 @@ export default function Register() {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">Lamasocial</h3>
+          <h3 className="loginLogo">Social Lite</h3>
           <span className="loginDesc">
-            Hey Let's connect through my light weight social media
+            Post and chat spend time with people online Social Lite.
           </span>
         </div>
         <div className="loginRight">
