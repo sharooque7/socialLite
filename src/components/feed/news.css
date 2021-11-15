@@ -1,0 +1,30 @@
+.newsComp {
+  width: 100%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  margin: 30px 0;
+}
+.newsCompWrapper {
+  padding: 10px;
+}
+.newsCompTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+.abstract {
+  text-align: justify;
+  margin: 10px 10px;
+  font-weight: 500;
+}
+a {
+  text-decoration: none;
+  color: red;
+}
