@@ -28,7 +28,7 @@ export default function Register() {
       try {
         await axios({
           method: "POST",
-          url: "/api/auth/register",
+          url: "https://socialliteserver.herokuapp.com/api/auth/register",
           data: { user },
         });
         history.push("/login");

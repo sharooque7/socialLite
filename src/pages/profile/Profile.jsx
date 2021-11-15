@@ -17,7 +17,7 @@ export default function Profile() {
     const fetchUser = async () => {
       const res = await axios({
         method: "GET",
-        url: `/api/users?username=${username}`,
+        url: `https://socialliteserver.herokuapp.com/api/users?username=${username}`,
         headers: { Authorization: "Bearer " + token },
       });
       setUser(res.data);
@@ -46,7 +46,7 @@ export default function Profile() {
       try {
         await axios({
           method: "post",
-          url: "/api/upload",
+          url: "https://socialliteserver.herokuapp.com/api/upload",
           data: formData,
           headers: { Authorization: "Bearer " + token },
         });
@@ -58,7 +58,7 @@ export default function Profile() {
     try {
       await axios({
         method: "PUT",
-        url: `/api/users/${user._id}`,
+        url: `https://socialliteserver.herokuapp.com/api/users/${user._id}`,
         data: { img },
         headers: { Authorization: "Bearer " + token },
       });

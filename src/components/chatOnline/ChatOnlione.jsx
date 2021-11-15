@@ -13,7 +13,9 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
     const getFriends = async () => {
       const res = await axios({
         method: "GET",
-        url: "/api/users/friends/" + currentId,
+        url:
+          "https://socialliteserver.herokuapp.com/api/users/friends/" +
+          currentId,
         headers: { Authorization: "Bearer " + token },
       });
       setFriends(res.data);
@@ -33,14 +35,14 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
     try {
       const res = await axios({
         method: "GET",
-        url: `/api/conversation/find/${currentId}/${user._id}`,
+        url: `https://socialliteserver.herokuapp.com/api/conversation/find/${currentId}/${user._id}`,
         headers: { Authorization: "Bearer " + token },
       });
 
       const con = await axios({
         method: "GET",
         // url: `http://localhost:5000/api/conversation/${userId}`,
-        url: `/api/conversation/${currentId}`,
+        url: `https://socialliteserver.herokuapp.com/api/conversation/${currentId}`,
         headers: { Authorization: "Bearer " + token },
       });
 
@@ -57,7 +59,7 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
         const data = await axios({
           method: "POST",
           // url: "http://localhost:5000/api/conversation",
-          url: "/api/conversation",
+          url: "https://socialliteserver.herokuapp.com/api/conversation",
           data: {
             senderId: currentId,
             receiverId: user._id,

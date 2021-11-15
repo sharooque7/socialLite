@@ -20,7 +20,7 @@ export default function Share() {
       const token = JSON.parse(localStorage.getItem("user")).token;
       const res = await axios({
         method: "GET",
-        url: `/api/users?userId=${user["user"]._id}`,
+        url: `https://socialliteserver.herokuapp.com/api/users?userId=${user["user"]._id}`,
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -52,7 +52,7 @@ export default function Share() {
       try {
         await axios({
           method: "POST",
-          url: "/api/upload",
+          url: "https://socialliteserver.herokuapp.com/api/upload",
           data: data,
           headers: { Authorization: "Bearer " + token },
         });
@@ -61,7 +61,7 @@ export default function Share() {
     try {
       await axios({
         method: "POST",
-        url: "/api/posts",
+        url: "https://socialliteserver.herokuapp.com/api/posts",
         data: newPost,
         headers: { Authorization: "Bearer " + token },
       });

@@ -31,14 +31,14 @@ export default function Feed({ username }) {
       const res = username
         ? await axios({
             method: "GET",
-            url: `/api/posts/profile/${username}`,
+            url: `https://socialliteserver.herokuapp.com/api/posts/profile/${username}`,
             headers: {
               Authorization: "Bearer " + token,
             },
           })
         : await axios({
             method: "GET",
-            url: `/api/posts/all`,
+            url: `https://socialliteserver.herokuapp.com/api/posts/all`,
             headers: { Authorization: "Bearer " + token },
           });
       //timeline/all

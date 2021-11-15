@@ -23,7 +23,7 @@ export default function Post({ post }) {
       const token = JSON.parse(localStorage.getItem("user")).token;
       const res = await axios({
         method: "GET",
-        url: `/api/users?userId=${post.userId}`,
+        url: `https://socialliteserver.herokuapp.com/api/users?userId=${post.userId}`,
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -39,7 +39,7 @@ export default function Post({ post }) {
     try {
       axios({
         method: "PUT",
-        url: `/api/posts/${post._id}/like`,
+        url: `https://socialliteserver.herokuapp.com/api/posts/${post._id}/like`,
         data: { userId: currentUser["user"]._id },
         headers: {
           Authorization: "Bearer " + token,
@@ -59,7 +59,7 @@ export default function Post({ post }) {
     try {
       await axios({
         method: "delete",
-        url: `/api/posts/${post}`,
+        url: `https://socialliteserver.herokuapp.com/api/posts/${post}`,
         data: { userId: currentUser["user"]._id },
         headers: { Authorization: "Bearer " + token },
       });

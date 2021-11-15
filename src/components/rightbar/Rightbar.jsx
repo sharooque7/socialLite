@@ -23,7 +23,9 @@ export default function Rightbar({ user }) {
       try {
         const friendList = await axios({
           method: "GET",
-          url: "/api/users/friends/" + user?._id,
+          url:
+            "https://socialliteserver.herokuapp.com/api/users/friends/" +
+            user?._id,
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -46,7 +48,7 @@ export default function Rightbar({ user }) {
       if (followed) {
         await axios({
           method: "PUT",
-          url: `/api/users/${user?._id}/unfollow`,
+          url: `https://socialliteserver.herokuapp.com/api/users/${user?._id}/unfollow`,
           data: {
             userId: currentUser["user"]?._id,
           },
@@ -59,7 +61,7 @@ export default function Rightbar({ user }) {
       } else {
         await axios.put({
           method: "PUT",
-          url: `/api/users/${user?._id}/follow`,
+          url: `https://socialliteserver.herokuapp.com/api/users/${user?._id}/follow`,
           data: {
             userId: currentUser["user"]._id,
           },
@@ -112,7 +114,7 @@ export default function Rightbar({ user }) {
         try {
           axios({
             method: "put",
-            url: `/api/users/${currentUser["user"]._id}`,
+            url: `https://socialliteserver.herokuapp.com/api/users/${currentUser["user"]._id}`,
             data: {
               city: city.current.value,
               from: from.current.value,

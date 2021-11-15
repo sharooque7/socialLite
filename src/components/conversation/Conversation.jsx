@@ -16,7 +16,9 @@ export default function Conversation({ conversation, currentUser }) {
       try {
         const res = await axios({
           method: "GET",
-          url: "/api/users?userId=" + friendId,
+          url:
+            "https://socialliteserver.herokuapp.com/api/users?userId=" +
+            friendId,
           headers: { Authorization: "Bearer " + token },
         });
         setUser(res.data);

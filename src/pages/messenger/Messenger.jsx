@@ -54,7 +54,9 @@ export default function Messenger() {
       try {
         const res = await axios({
           method: "GET",
-          url: "/api/conversation/" + user["user"]._id,
+          url:
+            "https://socialliteserver.herokuapp.com/api/conversation/" +
+            user["user"]._id,
           headers: { Authorization: "Bearer " + token },
         });
 
@@ -71,7 +73,9 @@ export default function Messenger() {
       try {
         const res = await axios({
           method: "GET",
-          url: "/api/message/" + currentChat?._id,
+          url:
+            "https://socialliteserver.herokuapp.com/api/message/" +
+            currentChat?._id,
           headers: { Authorization: "Bearer " + token },
         });
         setMessages(res.data);
@@ -103,7 +107,7 @@ export default function Messenger() {
     try {
       const res = await axios({
         method: "POST",
-        url: "/api/message",
+        url: "https://socialliteserver.herokuapp.com/api/message",
         data: message,
         headers: { Authorization: "Bearer " + token },
       });
