@@ -86,8 +86,8 @@ export default function Topbar() {
           <img
             src={
               userState.profilePicture
-                ? PF + userState.profilePicture
-                : PF + "person/noAvatar.png"
+                ? PF + "/" + userState.profilePicture
+                : PF + "/noAvatar.png"
             }
             alt="NoAvatar"
             className="topbarImg"

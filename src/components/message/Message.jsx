@@ -18,7 +18,7 @@ export default function Message({ message, user, own }) {
           className="messageImg"
           src={
             own
-              ? PF + currentUser?.profilePicture
+              ? PF + "/" + currentUser?.profilePicture
               : " https://images.pexels.com/photos/3686769/pexels-photo-3686769.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
           }
           alt=""

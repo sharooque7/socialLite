@@ -54,6 +54,7 @@ export default function Share() {
         await axios({
           method: "POST",
           url: "https://socialliteserver.herokuapp.com/api/upload",
+          // url: "http://localhost:4000/api/upload",
           data: data,
           headers: { Authorization: "Bearer " + token },
         });
@@ -63,6 +64,7 @@ export default function Share() {
       await axios({
         method: "POST",
         url: "https://socialliteserver.herokuapp.com/api/posts",
+        // url: "http://localhost:4000/api/posts",
         data: newPost,
         headers: { Authorization: "Bearer " + token },
       });
@@ -78,8 +80,8 @@ export default function Share() {
             className="shareProfileImg"
             src={
               userState.profilePicture
-                ? PF + userState.profilePicture
-                : PF + "/person/noAvatar.png"
+                ? PF + "/" + userState.profilePicture
+                : PF + "/noAvatar.png"
             }
             alt=""
           />

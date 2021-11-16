@@ -8,7 +8,7 @@ export default function Online({ user }) {
         <img
           className="rightbarProfileImg"
           src={`${PF}/${user.profilePicture}`}
-          alt=""
+          alt="profilePicture"
         />
         <span className="rightbarOnline"></span>
       </div>

@@ -77,8 +77,8 @@ export default function Post({ post }) {
               <img
                 src={
                   user.profilePicture
-                    ? PF + user.profilePicture
-                    : PF + "/person/noAvatar.png"
+                    ? PF + "/" + user.profilePicture
+                    : PF + "/noAvatar.png"
                 }
                 alt="NoAvatar"
                 className="topbarImg"
@@ -100,7 +100,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={`${PF}/${post.img}`} alt="" />
+          <img className="postImg" src={`${PF}/${post.img}`} alt="postImage" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
