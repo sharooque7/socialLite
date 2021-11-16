@@ -76,7 +76,7 @@ export default function Rightbar({ user }) {
       }
     } catch (err) {
       // console.log(err);
-      setFollowed(!followed);
+      // setFollowed(!followed);
     }
   };
 
