@@ -5,15 +5,20 @@ import { useContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { Add, Remove } from "@mui/icons-material";
+import { Add, Fastfood, Remove } from "@mui/icons-material";
 
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
-  // console.log(currentUser);
-  // console.log(user);
-  const [followed, setFollowed] = useState("");
+  console.log(currentUser);
+  console.log(user);
+  // const [followed, setFollowed] = useState("");
+  const [followed, setFollowed] = useState(false);
+
+  useEffect(() => {
+    setFollowed(user ? currentUser.followings.includes(user?._id) : false);
+  }, []);
 
   useEffect(() => {
     const getFriends = async () => {
@@ -55,7 +60,7 @@ export default function Rightbar({ user }) {
           },
         });
         setFollowed(false);
-        dispatch({ type: "UNFOLLOW", payload: user?._id });
+        await dispatch({ type: "UNFOLLOW", payload: user?._id });
       } else {
         await axios({
           method: "PUT",
@@ -67,10 +72,11 @@ export default function Rightbar({ user }) {
         });
         // console.log(followed);
         setFollowed(true);
-        dispatch({ type: "FOLLOW", payload: user._id });
+        await dispatch({ type: "FOLLOW", payload: user._id });
       }
     } catch (err) {
       // console.log(err);
+      setFollowed(!followed);
     }
   };
 

@@ -9,10 +9,13 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
   const [onlineFriends, setOnlineFriends] = useState([]);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
+  console.log(user);
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("user")).token;
     ///console.log(currentId);
     const getFriends = async () => {
+      console.log(user);
       const res = await axios({
         method: "GET",
         url:
@@ -85,7 +88,9 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
             <img
               className="chatOnlineImg"
               src={
-                o?.profilePicture ? PF + o.profilePicture : PF + "/noAvatar.png"
+                o?.profilePicture
+                  ? PF + "/" + o.profilePicture
+                  : PF + "/noAvatar.png"
               }
               alt=""
             />

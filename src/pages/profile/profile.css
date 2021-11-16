@@ -28,6 +28,7 @@
   margin: auto;
   top: 250px;
   border: 3px solid white;
+  margin-bottom: 10px;
 }
 
 .profileInfo {
@@ -47,4 +48,5 @@
 
 .profileRightBottom {
   display: flex;
+  margin-top: 15px;
 }
