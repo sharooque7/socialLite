@@ -19,6 +19,7 @@ export default function Messenger() {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useRef();
   const { user } = useContext(AuthContext);
+  console.log(user);
   const scrollRef = useRef();
   const token = JSON.parse(localStorage.getItem("user")).token;
 
@@ -45,10 +46,9 @@ export default function Messenger() {
     /////console.log(user?.followings);
     socket.current.emit("addUser", user?._id);
     socket.current.on("getUsers", (users) => {
-      // setOnlineUsers(
-      //   user?.followings.filter((f) => users.some((u) => u.userId === f))
-      // );
-      setOnlineUsers(users);
+      setOnlineUsers(
+        user?.followings.filter((f) => users.some((u) => u.userId === f))
+      );
     });
   }, [user]);
 
