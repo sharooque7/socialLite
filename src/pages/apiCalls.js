@@ -25,6 +25,7 @@ export const loginCall = async (userCredential, dispatch) => {
 export const logout = async (dispatch) => {
   localStorage.removeItem("expiryDate");
   localStorage.removeItem("user");
+  localStorage.removeItem("justOnce");
   dispatch({ type: "LOGOUT" });
 };
 

@@ -14,11 +14,13 @@ export default function Rightbar({ user }) {
   console.log(currentUser);
   console.log(user);
   // const [followed, setFollowed] = useState("");
-  const [followed, setFollowed] = useState(false);
+  const [followed, setFollowed] = useState(
+    user ? currentUser.followings.includes(user?._id) : false
+  );
 
-  useEffect(() => {
-    setFollowed(user ? currentUser.followings.includes(user?._id) : false);
-  }, []);
+  // useEffect(() => {
+  //   setFollowed(user ? currentUser.followings.includes(user?._id) : false);
+  // }, []);
 
   useEffect(() => {
     const getFriends = async () => {
